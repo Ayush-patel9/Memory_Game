@@ -164,10 +164,10 @@ planetary-pairs/
 
 ---
 
-## 🤝 Contributers
+## 🤝 Contributors
 
-* **Ayush Patel** (BT2024054)
-* **Kanav Kumar** (BT2024021)
+* [**Ayush Patel** (BT2024054)](https://www.linkedin.com/in/ayush-patel-72a037316)
+* [**Kanav Kumar** (BT2024021)](https://www.linkedin.com/in/kanav-kumar-b655962b5/)
 
 
 ### 📝 Code Style
