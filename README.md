@@ -4,13 +4,6 @@
 
 ---
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python Version" />
-  <img src="https://img.shields.io/badge/Tkinter-GUI-success.svg" alt="Tkinter GUI" />
-  <img src="https://img.shields.io/badge/Pygame-Audio-green.svg" alt="Pygame Audio" />
-  <img src="https://img.shields.io/github/issues/yourusername/planetary-pairs.svg" alt="GitHub issues" />
-</p>
-
 ---
 
 ## ✨ Overview
@@ -48,23 +41,23 @@
 
 ## 🔨 How It's Made
 
-1. **Core Logic**: Uses Python’s **`random.shuffle`** to randomize card positions. Each card object holds:
+1. **Core Logic**: Uses Python’s \`\` to randomize card positions. Each card object holds:
 
-   * **`id`**: Unique identifier for matching logic.
-   * **`image`**: Front face (planet PNG), default back face image.
-   * **`state`**: `hidden`, `revealed`, or `matched`.
+   * \`\`: Unique identifier for matching logic.
+   * \`\`: Front face (planet PNG), default back face image.
+   * \`\`: `hidden`, `revealed`, or `matched`.
 
 2. **GUI Layer**: Built with **Tkinter**:
 
-   * **`MainWindow`** class initializes root, menus, and game frames.
-   * **`CardButton`** subclass of `tk.Button` manages click events & appearance.
-   * Layout uses **`Grid`** manager for flexible resizing.
+   * \`\` class initializes root, menus, and game frames.
+   * \`\` subclass of `tk.Button` manages click events & appearance.
+   * Layout uses \`\` manager for flexible resizing.
 
 3. **Event Handling**:
 
    * On click, check if less than 2 cards are currently `revealed`.
    * Reveal card image and append to `open_cards` list.
-   * If two cards are open, schedule a **`root.after(800, check_match)`**:
+   * If two cards are open, schedule a \`\`:
 
      * If IDs match, mark both as `matched`, play **match sound**.
      * Else, flip both back and increment move counter.
@@ -80,10 +73,10 @@
    victory_sound = pygame.mixer.Sound('audio/victory.mp3')
    ```
 
-5. **Data Persistence**: Utilized Python’s **`csv`** module:
+5. **Data Persistence**: Utilized Python’s \`\` module:
 
    * On game end, append `[player_name, moves, MM:SS]` to `record.csv`.
-   * **`View History`** button reads CSV and displays results in a sortable **Tkinter `Treeview`**.
+   * ` button reads CSV and displays results in a sortable **Tkinter **`.
 
 ---
 
@@ -100,6 +93,28 @@
 6. Upon completion, your score is recorded; view **History** anytime.
 
 > 🎯 **Goal**: Achieve the fastest time with the fewest moves to top the leaderboard!
+
+---
+
+## 💻 Installation & Running the Game
+
+### Prerequisites
+
+Make sure you have **Python 3.10+** installed.
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run the Game
+
+```bash
+python main.py
+```
+
+> 📝 Note: Ensure your working directory has the `images/`, `audio/`, and `record.csv` files alongside `main.py`.
 
 ---
 
@@ -149,13 +164,11 @@ planetary-pairs/
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contributers
 
-1. **Fork** the repository.
-2. Create your **feature branch**: `git checkout -b feature/AwesomeAdd`
-3. **Commit** your changes: `git commit -m 'Add awesome feature'`
-4. **Push** to branch: `git push origin feature/AwesomeAdd`
-5. **Open** a Pull Request; describe your changes and motivation.
+* **Ayush Patel** (BT2024054)
+* **Kanav Kumar** (BT2024021)
+
 
 ### 📝 Code Style
 
