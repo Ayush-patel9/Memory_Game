@@ -1,4 +1,5 @@
 #importing all the needed modules for the code
+import os
 from tkinter import *
 import csv
 import time
@@ -8,7 +9,7 @@ import tkinter.ttk as ttk
 from tkinter import messagebox
 import pygame
 
-
+base_dir = os.path.dirname(os.path.abspath(__file__))
 #l1-a list to store the images of the currently selcted button
 l1 = []
 #l2 is a list to store thebuttons that have been pressed
@@ -64,7 +65,8 @@ class UI:
 
         #here we are setting the background for that we use a label and by photo image we imported image and added it to tha label and thereby set the bg
         #actually its just a label but since the window and image size is same it is acting as background (actually is a label)
-        self.bg = PhotoImage(file=r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\image.png")
+        
+        self.bg = PhotoImage(file=os.path.join(base_dir, '..', 'images', 'image.png'))
         label2 = Label(self.root, image=self.bg)
         label2.place(x=0, y=0)
 
@@ -109,7 +111,7 @@ class UI:
         instruction_window.maxsize("800","500")
         
         #here we import the image in which we have written the rules for how to play and place it by a label so it is shown in the page as per its size
-        instruction_image = PhotoImage(file=r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\instruction.png")
+        instruction_image = PhotoImage(file=os.path.join(base_dir, '..', 'images', 'instruction.png'))
         label = Label(instruction_window, image=instruction_image)
         label.image = instruction_image  # Keep a reference to avoid garbage collection
         label.pack()
@@ -147,7 +149,7 @@ class UI:
 
         #here we are using the photoimage function import the png image and set it as a label but here since the size of the window and the image is same 
         #it acts as a background which we wanted to set so it is placed at 0,0
-        self.bg1 = PhotoImage(file=r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\background2.png")
+        self.bg1 = PhotoImage(file=os.path.join(base_dir, '..', 'images', 'background2.png'))
         label3 = Label(i2, image=self.bg1)
         label3.place(x=0, y=0)
 
@@ -219,10 +221,9 @@ class UI:
         i3.configure(cursor="target")
 
         #here we import a image bacbutton which is the image which is displayed on th back side of the button i.e whien button is not flipped
-        backbutton = PhotoImage(file=r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\background.png")
+        backbutton = PhotoImage(file=os.path.join(base_dir, '..', 'images', 'background.png'))
         #here we import the images of the planets in a list Photoimage for it we have used list comprehension 
-        planet_images = [PhotoImage(file=r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\{}.png".format(planet)) for planet in
-                         ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]]
+        planet_images = [PhotoImage(file=os.path.join(base_dir, '..', 'images', f"{planet}.png"))for planet in ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]]
 
         #here we create a new list l which is having each image twice as there are 8 pairs
         l = planet_images * 2
@@ -239,7 +240,8 @@ class UI:
                 self.text = text
                 self.button = button
                 pygame.init()
-                self.match_sound = pygame.mixer.Sound(r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\match.mp3")
+                sound_path = os.path.join(base_dir, '..', 'audio', 'match.mp3')
+                self.match_sound = pygame.mixer.Sound(sound_path)
             #here we are creating a new function f for the game logic and flipping
             def f(self):
                 #here by global we are making l1,l2,l3 and n accessible to this class and this function
@@ -293,7 +295,9 @@ class UI:
                     #the game and we store this in a variable total_time
                     total_time = timer.get_elapsed_time()
                     #now we are opening our csv file in read mode 
-                    with open(r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\record.csv","r") as A:
+                    file_path = os.path.join(base_dir, '..', 'record.csv')  # if record.csv is directly in parent folder
+                    with open(file_path, "r") as A:
+                    
                         #we are making a reader for our csv files and iterate over records
                         csv_reader = csv.reader(A)
                         #instanicing 2 varibales k and w as 0
@@ -316,7 +320,9 @@ class UI:
                                 pass
                     
                     #this time we are opening our csv file in the append mode 
-                    with open(r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\record.csv", "a") as A:
+                    file_path = os.path.join(base_dir, '..', 'record.csv')  # adjust if record.csv is inside a folder
+
+                    with open(file_path, "a") as A:
                         #incrementing our this games score in that file by formating
                         #here k 
                         A.write(f"{K},{player_name},{n},{str(datetime.timedelta(seconds=total_time))[2:7]}\n")
@@ -419,7 +425,9 @@ class UI:
         tree.heading("Time Taken", text="Time Taken")
 
         #here we are opening the csv file in read mode
-        with open(r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\record.csv", "r") as B:
+        file_path = os.path.join(base_dir, '..', 'record.csv')  # adjust folder if needed
+
+        with open(file_path, "r") as B:
             #we are creating a reader for csv file
             csv_reader = csv.reader(B)
             #we use this to skip the reading of the header of the csv file
@@ -451,7 +459,7 @@ class UI:
         M = []
         T = []
         #here we are again opening the csv file in read mode
-        with open(r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\record.csv", "r") as B:
+        with open(os.path.join(base_dir, '..', 'record.csv'), "r") as B:
             #we are creating its reader
             csv_reader = csv.reader(B)
             #we skip the first line that is heading of the  csv file
@@ -481,7 +489,7 @@ class Scoreboard:
         #here we are initialsiing the pygame
         pygame.init()
         #we are importing the game sound which we want to use
-        self.victory_sound = pygame.mixer.Sound(r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\congo.mp3")
+        self.victory_sound = pygame.mixer.Sound(os.path.join(base_dir, '..', 'audio', 'congo.mp3'))
     #here we create a new function show_scoreboard to display the scoreboard
     def show_scoreboard(self):
         #here we create a new window on the previous window that is root
@@ -493,7 +501,7 @@ class Scoreboard:
         #we have aslo given title to our window to make it lookm asethetic
         i4.title("Exit:Space Traveler's Departure")
         #now we are importing a image by PhotoImage and using it as bg as image and window size is same so this label becomes bg
-        bg3 = PhotoImage(file=r"C:\Users\patel\Downloads\keyur-20241017T192053Z-001\keyur\1234.png")
+        bg3 = PhotoImage(file=os.path.join(base_dir, '..', 'images', '1234.png'))
         label2 = Label(i4, image=bg3)
         label2.place(x=0, y=0)
 
