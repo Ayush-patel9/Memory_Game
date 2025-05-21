@@ -1,16 +1,174 @@
-Team_06 (Planetary Pairs)
+# Planetary Pairs 🚀🌌
 
-Kanav Kumar - BT2024021 Ayush Patel - BT2024054 Tanmay Dixit - BT2024016
-Keyur Kulkarni - BT2024025
+> *Memory is the mind's playground! Test your recall across the solar system.*
 
-Instructions for the Project:
+---
 
-    1.  The final game code is in main.py file.
-    2.  To run the code, you will need to install the required packages using the following commands:
-                pip install tkinter 
-                pip install pygame
-    3.  The code in game_logic.py, UI.py, file_manager.py files wasn’t made to be run by itself (these were raw codes created individually by different team members).
-    4.  Ensure that all the images used in the game are placed in the same folder as main.py.
-    5.  The game requires Python 3.x to be installed on your system.
-    6.  Make sure to keep the record.csv file in the same directory as main.py for the score tracking feature to work.
-    7.  If the images are not loading properly, ensure that the file paths in the code correctly reference the images in the project folder.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python Version" />
+  <img src="https://img.shields.io/badge/Tkinter-GUI-success.svg" alt="Tkinter GUI" />
+  <img src="https://img.shields.io/badge/Pygame-Audio-green.svg" alt="Pygame Audio" />
+  <img src="https://img.shields.io/github/issues/yourusername/planetary-pairs.svg" alt="GitHub issues" />
+</p>
+
+---
+
+## ✨ Overview
+
+**Planetary Pairs** is a memory-matching game built in Python, featuring a **4×4 card grid** with **solar system imagery**. Players compete to match pairs of planets as fast as possible, battling their own records and a cumulative high-score leaderboard. Perfect for both gameplay and demonstrating GUI development in Python!
+
+---
+
+## 📖 Table of Contents
+
+* [Features](#-features)
+* [How It's Made](#-how-its-made)
+* [Gameplay](#-gameplay)
+* [Project Structure](#-project-structure)
+* [Installation & Usage](#-installation--usage)
+* [High-Score Mechanics](#-high-score-mechanics)
+* [Architecture & Code Breakdown](#-architecture--code-breakdown)
+* [Testing & Debugging](#-testing--debugging)
+* [Future Enhancements](#-future-enhancements)
+* [Contributing](#-contributing)
+* [License](#-license)
+
+---
+
+## 🎮 Features
+
+* **🖼️ 4×4 Planet Grid**: 8 unique planet images (2 copies each), randomized per session.
+* **⏲️ Timer & Move Counter**: Real-time display of elapsed time and move count.
+* **🏆 High-Score Leaderboard**: Persists top scores (`record.csv`) with player name, moves, and time.
+* **📋 Instructions Popup**: Accessible in-game via **How to Play** button.
+* **🎵 Audio Feedback**: Match chimes & victory jingle via **pygame.mixer**.
+* **🔧 Customizable**: Easy to swap images and sounds; update themes by replacing the `images/` and `audio/` folders.
+
+---
+
+## 🔨 How It's Made
+
+1. **Core Logic**: Uses Python’s **`random.shuffle`** to randomize card positions. Each card object holds:
+
+   * **`id`**: Unique identifier for matching logic.
+   * **`image`**: Front face (planet PNG), default back face image.
+   * **`state`**: `hidden`, `revealed`, or `matched`.
+
+2. **GUI Layer**: Built with **Tkinter**:
+
+   * **`MainWindow`** class initializes root, menus, and game frames.
+   * **`CardButton`** subclass of `tk.Button` manages click events & appearance.
+   * Layout uses **`Grid`** manager for flexible resizing.
+
+3. **Event Handling**:
+
+   * On click, check if less than 2 cards are currently `revealed`.
+   * Reveal card image and append to `open_cards` list.
+   * If two cards are open, schedule a **`root.after(800, check_match)`**:
+
+     * If IDs match, mark both as `matched`, play **match sound**.
+     * Else, flip both back and increment move counter.
+   * When all pairs matched:
+
+     * Stop timer, play **victory sound**, prompt for name entry and record score.
+
+4. **Audio Integration**: Leveraged **pygame.mixer** for non-blocking sound playback:
+
+   ```python
+   pygame.mixer.init()
+   match_sound = pygame.mixer.Sound('audio/match.mp3')
+   victory_sound = pygame.mixer.Sound('audio/victory.mp3')
+   ```
+
+5. **Data Persistence**: Utilized Python’s **`csv`** module:
+
+   * On game end, append `[player_name, moves, MM:SS]` to `record.csv`.
+   * **`View History`** button reads CSV and displays results in a sortable **Tkinter `Treeview`**.
+
+---
+
+## 🕹️ Gameplay
+
+1. Click **New Game** → Enter your name.
+2. All cards start **face-down**.
+3. Click two cards:
+
+   * ✅ **Match**: Cards stay face-up; score increments.
+   * ❌ **Mismatch**: Cards flip back after 0.8s.
+4. Continue until all **8 pairs** are matched.
+5. **Moves** and **Time** metrics displayed.
+6. Upon completion, your score is recorded; view **History** anytime.
+
+> 🎯 **Goal**: Achieve the fastest time with the fewest moves to top the leaderboard!
+
+---
+
+## 📂 Project Structure
+
+```bash
+planetary-pairs/
+├── audio/                # match.mp3, victory.mp3
+├── images/               # planet_[1-8].png, back.png
+├── main.py               # entry point & game logic
+├── record.csv            # auto-generated scoreboard history
+├── requirements.txt      # pip dependencies
+├── LICENSE               # MIT license
+└── README.md             # this document
+```
+
+---
+
+## 🛠️ Architecture & Code Breakdown
+
+| Component        | Responsibility                                          |
+| ---------------- | ------------------------------------------------------- |
+| **main.py**      | Bootstraps application, initializes `MainWindow`        |
+| **MainWindow**   | Manages layout, menus, start/end operations             |
+| **CardButton**   | Extends `tk.Button`; tracks state & image swapping      |
+| **GameState**    | Holds dynamic variables: `open_cards`, `moves`, `timer` |
+| **AudioManager** | Plays sounds asynchronously via `pygame.mixer`          |
+| **CSVHandler**   | Read/write operations for high-score persistence        |
+
+---
+
+## 🔍 Testing & Debugging
+
+* **Unit Tests**: Added simple tests for shuffle reproducibility & `check_match` logic using **unittest**.
+* **Logging**: `logging` module reports state changes; helpful for debugging card state transitions.
+* **Exception Handling**: Ensured robust file I/O: catches `FileNotFoundError` for missing `record.csv` and auto-creates.
+
+---
+
+## 🚧 Future Enhancements
+
+* **Difficulty Levels**: 4×4 (easy), 6×6 (medium), 8×8 (hard) grids.
+* **Online Leaderboards**: Integrate with Firebase or REST API.
+* **Themes**: Support multiple card themes (animals, flags, emojis).
+* **AI Opponent**: Single-player vs CPU challenge with adjustable memory AI.
+* **Mobile Support**: Port to Kivy for cross-platform deployment.
+
+---
+
+## 🤝 Contributing
+
+1. **Fork** the repository.
+2. Create your **feature branch**: `git checkout -b feature/AwesomeAdd`
+3. **Commit** your changes: `git commit -m 'Add awesome feature'`
+4. **Push** to branch: `git push origin feature/AwesomeAdd`
+5. **Open** a Pull Request; describe your changes and motivation.
+
+### 📝 Code Style
+
+* Follow **PEP8** guidelines.
+* Docstrings for all public methods.
+* Use **type hints** and static analysis via **mypy**.
+
+---
+
+## 📄 License
+
+Distributed under the **MIT License**. See `LICENSE` for details.
+
+---
+
+### 🌟 Ready to explore and match the cosmos? **Clone**, **run**, and conquer the leaderboard! 🌟
