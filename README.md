@@ -57,23 +57,23 @@ Here are some screenshots from our game to give you a quick look at the gameplay
 
 ## 🔨 How It's Made
 
-1. **Core Logic**: Uses Python’s \`\` to randomize card positions. Each card object holds:
+1. **Core Logic**: Uses Python’s `random` module to randomize card positions. Each card object holds:
 
-   * \`\`: Unique identifier for matching logic.
-   * \`\`: Front face (planet PNG), default back face image.
-   * \`\`: `hidden`, `revealed`, or `matched`.
+   * `id`: Unique identifier for matching logic.
+   * `front_image`: Front face (planet PNG), default back face image.
+   * `state`: `hidden`, `revealed`, or `matched`.
 
 2. **GUI Layer**: Built with **Tkinter**:
 
-   * \`\` class initializes root, menus, and game frames.
-   * \`\` subclass of `tk.Button` manages click events & appearance.
-   * Layout uses \`\` manager for flexible resizing.
+   * `MemoryGame` class initializes root, menus, and game frames.
+   * `CardButton` subclass of `tk.Button` manages click events & appearance.
+   * Layout uses `grid()` manager for flexible resizing.
 
 3. **Event Handling**:
 
    * On click, check if less than 2 cards are currently `revealed`.
    * Reveal card image and append to `open_cards` list.
-   * If two cards are open, schedule a \`\`:
+   * If two cards are open, schedule a `root.after()`:
 
      * If IDs match, mark both as `matched`, play **match sound**.
      * Else, flip both back and increment move counter.
@@ -87,12 +87,12 @@ Here are some screenshots from our game to give you a quick look at the gameplay
    pygame.mixer.init()
    match_sound = pygame.mixer.Sound('audio/match.mp3')
    victory_sound = pygame.mixer.Sound('audio/victory.mp3')
-   ```
+   
+5. Data Persistence: Utilized Python’s csv module:
 
-5. **Data Persistence**: Utilized Python’s \`\` module:
+   * On game end, append [player_name, moves, MM:SS] to record.csv.
 
-   * On game end, append `[player_name, moves, MM:SS]` to `record.csv`.
-   * ` button reads CSV and displays results in a sortable **Tkinter **`.
+   * view_history() button reads CSV and displays results in a sortable Tkinter Treeview.
 
 ---
 
@@ -118,6 +118,17 @@ Here are some screenshots from our game to give you a quick look at the gameplay
 
 Make sure you have **Python 3.10+** installed.
 
+### Required Directory
+
+For Windows 
+```bash
+cd Windows
+```
+For MacOS
+```bash
+cd MacOS
+```
+
 ### Install Dependencies
 
 ```bash
@@ -130,7 +141,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-> 📝 Note: Ensure your working directory has the `images/`, `audio/`, and `record.csv` files alongside `main.py`.
+> 📝 Note: Ensure your working directory has the `images/`, `audio/` and `record.csv` files alongside `main.py`.
 
 ---
 
@@ -182,15 +193,10 @@ planetary-pairs/
 
 ## 🤝 Contributors
 
-* [**Ayush Patel** (BT2024054)](https://www.linkedin.com/in/ayush-patel-72a037316)
-* [**Kanav Kumar** (BT2024021)](https://www.linkedin.com/in/kanav-kumar-b655962b5/)
-
-
-### 📝 Code Style
-
-* Follow **PEP8** guidelines.
-* Docstrings for all public methods.
-* Use **type hints** and static analysis via **mypy**.
+| Name | GitHub | LinkedIn | Instagram |
+|------|--------|----------|-----------|
+| **Ayush Patel** (BT2024054) | [Ayush-patel9](https://github.com/Ayush-patel9) | [Ayush Patel](https://www.linkedin.com/in/ayush-patel-72a037316) | [ayush.p_9/](https://www.instagram.com/ayush.p_9/) |
+| **Kanav Kumar** (BT2024021) | [KINGKK-007](https://github.com/KINGKK-007) | [Kanav Kumar](https://www.linkedin.com/in/kanav-kumar-b655962b5/) | [kanavvkumarr](https://www.instagram.com/kanavvkumarr/) |
 
 ---
 
