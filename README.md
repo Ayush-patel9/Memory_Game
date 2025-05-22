@@ -1,6 +1,7 @@
 # Planetary Pairs 🚀🌌
 
 > *Memory is the mind's playground! Test your recall across the solar system.*
+![Logo](game-images/logo.jpeg)
 
 ---
 
