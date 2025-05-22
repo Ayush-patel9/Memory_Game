@@ -15,6 +15,7 @@
 ## 📖 Table of Contents
 
 * [Features](#-features)
+* [Game Screenshots](#-game-screenshots)
 * [How It's Made](#-how-its-made)
 * [Gameplay](#-gameplay)
 * [Project Structure](#-project-structure)
@@ -36,6 +37,20 @@
 * **📋 Instructions Popup**: Accessible in-game via **How to Play** button.
 * **🎵 Audio Feedback**: Match chimes & victory jingle via **pygame.mixer**.
 * **🔧 Customizable**: Easy to swap images and sounds; update themes by replacing the `images/` and `audio/` folders.
+
+---
+
+## 🖼️ Game Screenshots
+
+Here are some screenshots from our game to give you a quick look at the gameplay and interface:
+
+| Home Page | Enter Name Page | Memory Game |
+|--------------|--------------|--------------|
+| ![Home Page](game-images/Home-Page.png) | ![Enter Name Page](game-images/Enter-Name-Page.png) | ![Memory Game](game-images/Memory-Game.png) |
+
+| Scores Page | Exit Page | How To Play |
+|--------------|--------------|--------------|
+| ![Scores Page](game-images/Scores-Page.png) | ![Exit Page](game-images/Exit-Page.png) | ![How To Play](game-images/How-To-Play-Page.png) |
 
 ---
 
